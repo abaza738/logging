@@ -15,23 +15,12 @@ export class LogService {
     return this.logRepo.save(createLogDto);
   }
 
-  findAll() {
-    return this.logRepo.find();
-  }
-
-  async findAllPaginated(take: number, skip: number) {
-    take = take || 10;
-    skip = skip || 0;
-
-    const [result, total] = await this.logRepo.findAndCount({
-      take: take,
-      skip: skip,
+  findAll(skip: number = 0) {
+    return this.logRepo.findAndCount({
+      order: { created: 'DESC' },
+      take: 10,
+      skip,
     });
-
-    return {
-      data: result,
-      count: total,
-    };
   }
 
   removeLogsWhereIHadAnInfiniteLoopByMistakeAddingEventsForver() {

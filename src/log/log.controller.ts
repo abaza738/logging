@@ -5,14 +5,9 @@ import { LogService } from './log.service';
 export class LogController {
   constructor(private logService: LogService) {}
 
-  @Get('paginated')
-  findLogs(@Query('take') take: number, @Query('skip') skip: number) {
-    return this.logService.findAllPaginated(take, skip);
-  }
-
   @Get('')
-  findAll() {
-    return this.logService.findAll();
+  findAll(@Query('skip') skip: number) {
+    return this.logService.findAll(skip);
   }
 
   @Post('')
